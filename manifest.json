@@ -1,7 +1,7 @@
 {
-    "name": "My-TUC-App",
-    "short_name": "MyTUC",
-    "start_url": "/~mageo/",
+    "name": "My Git Hub Tuc App",
+    "short_name": "GitHub TUC",
+    "start_url": "https://cheesoc.github.io/",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
