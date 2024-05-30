@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+
+  <title>Hello World!</title>
+  <link rel="manifest" href="manifest.json" />
+  <script> src = "https://unpkg.com/alpinejs"</script>
+  <script>
+    window.addEventListener('deviceorientation', event => {
+      let winkel = Math.sin(event.beta / 10);
+      output.innerText = winkel;
+      bild.style.opacity = winkel;
+    });
+  </script>
+
+<script>
+  async function registerServiceWorker() {
+    if ("serviceWorker" in navigator) {
+      try {
+        const registration = await navigator.serviceWorker.register(
+          "sw.js"
+        );
+        console.log(
+          "Service Worker registered with scope:",
+          registration.scope
+        );
+      } catch (error) {
+        console.error("Service Worker registration failed:", error);
+      }
+    }
+  }
+
+  registerServiceWorker();
+</script>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <h1>Hello World!!</h1>
+
+    <div id="output"></div>
+
+    <div style="
+        background-image: url(https://www-user.tu-chemnitz.de/~wilt/km/Karl-Marx-Kopf_C.jpg);
+        background-size: contain;">
+      <img id="bild" src="https://www-user.tu-chemnitz.de/~wilt/km/Karl-Marx-Kopf_KMS.jpg">
+    </div>
+
+    <button onclick="
+        let data = {
+          title: 'TU Chemnitz',
+          text: 'Die Webseite der TU Chemnitz',
+          url: 'https://www.tu-chemnitz.de'
+        };
+
+        if (navigator.canShare && navigator.canShare(data)){
+          navigator.share(data);
+        }
+        else {
+          // keine web share api!
+          navigator.clipboard.writeText(data.url);
+
+          this.setAttribute('data-tooltip', 'Link kopiert!');
+          setTimeout(() => {
+            this.removeAttribute('data-tooltip');
+          }, 3000);
+
+          //Buttontext ändern
+          let alterText = this.innertext;
+          this.innertext = 'Link kopiert';
+          setTimeout(() => this.innerText = alterText, 3000);
+        }
+      ">Teilen</button>
+  </main>
+</body>
+
+</html>
